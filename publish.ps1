@@ -8,6 +8,13 @@ if (-not (Test-Path $git)) {
   $git = "git"
 }
 
+$remotes = & $git remote
+if (-not $remotes) {
+  Write-Host "还没有配置 GitHub 远程仓库。先运行："
+  Write-Host ".\tools\git\cmd\git.exe remote add origin https://github.com/<你的用户名>/<仓库名>.git"
+  exit 1
+}
+
 & $git add .
 
 $changes = & $git status --porcelain
@@ -23,7 +30,7 @@ if ($LASTEXITCODE -ne 0) {
 
 & $git push
 if ($LASTEXITCODE -ne 0) {
-  Write-Host "推送失败：请先在 GitHub 建仓库并配置 origin。"
+  Write-Host "推送失败：请检查远程仓库和登录状态。"
   exit $LASTEXITCODE
 }
 
