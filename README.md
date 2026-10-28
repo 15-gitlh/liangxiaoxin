@@ -49,6 +49,11 @@ node build.mjs
 - `netlify.toml`（Netlify：`node build.mjs` + `dist`）
 - `vercel.json`（Vercel：`node build.mjs` + `dist`）
 - `.github/workflows/pages.yml`（GitHub Pages：push 自动部署）
+- `publish.ps1`（一键 `git add/commit/push`）
+
+```powershell
+.\publish.ps1 "更新知识库"
+```
 
 详细步骤见 [DEPLOY.md](DEPLOY.md)。
 
@@ -68,6 +73,7 @@ liangxiaoxin/
 ├─ build.mjs       生成 dist/ 部署包
 ├─ netlify.toml    Netlify 构建配置
 ├─ vercel.json     Vercel 构建配置
+├─ publish.ps1     一键 git add/commit/push
 ├─ server.mjs      可选：静态服务 + 大模型代理
 ├─ package.json
 ├─ benchmark.md    师小新 vs 量小新 对标拆解

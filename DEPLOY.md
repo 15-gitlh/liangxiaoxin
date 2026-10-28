@@ -93,6 +93,34 @@ npx vercel --prod
 
 ---
 
+## 先推到 GitHub
+
+本机已初始化 Git（`main` 分支、2 个提交）。在 GitHub 新建仓库后：
+
+```bash
+git remote add origin https://github.com/<你的用户名>/<仓库名>.git
+git push -u origin main
+```
+
+本机没有全局 Git 时，用便携版：
+
+```powershell
+.\tools\git\cmd\git.exe remote add origin https://github.com/<你的用户名>/<仓库名>.git
+.\tools\git\cmd\git.exe push -u origin main
+```
+
+## 一键发布
+
+改完知识库/前端后，在项目目录执行：
+
+```powershell
+.\publish.ps1 "更新知识库"
+```
+
+它会自动 `git add` → `git commit` → `git push`；平台已连接 Git 的话，网站随后自动更新。
+
+---
+
 ## 自动更新怎么开
 
 只要用 **Git 连接**（Netlify / Cloudflare Pages / GitHub Pages），以后改完执行：
