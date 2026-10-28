@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#082a4a" />
+  <meta name="description" content="量小新 · 中国计量大学新生问答库" />
+  <title>量小新 · 新生问答库</title>
+  <link rel="stylesheet" href="faq.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <a class="brand" href="index.html">
+        <div class="logo" aria-hidden="true">量</div>
+        <div class="brand-text">
+          <h1>量小新</h1>
+          <p>中国计量大学 · 迎新智能体</p>
+        </div>
+      </a>
+      <div class="top-actions">
+        <span class="online"><i></i> 7×24 在线</span>
+        <a class="chat-btn" href="index.html">对话模式 <span>→</span></a>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-left">
+        <div class="kicker">CJLU · FRESHMAN GUIDE</div>
+        <h1>你好，我是量小新</h1>
+        <p>报到、宿舍、缴费、军训、选课、生活，<strong id="kbTotal">91</strong> 条问答。答案标来源，拿不准帮你转人工。</p>
+        <div class="hero-meta">
+          <span>91 条知识库</span>
+          <span>答案带来源</span>
+          <span>人工兜底</span>
+        </div>
+        <div class="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="6.5" />
+            <path d="m16 16 5 5" />
+          </svg>
+          <input id="q" type="search" placeholder="搜：宿舍 / 校园卡 / 转专业 / 快递…" autocomplete="off" aria-label="搜索问题" />
+          <button id="mic" class="mic" type="button" title="语音提问" aria-label="语音提问" aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+              <rect x="9" y="3" width="6" height="11" rx="3" />
+              <path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M9 21h6" />
+            </svg>
+          </button>
+          <button id="clear" type="button" title="清空" aria-label="清空搜索">×</button>
+        </div>
+        <div class="hot" id="hot"></div>
+      </div>
+
+      <div class="hero-right">
+        <div class="service-head">迎新服务 <small>官方入口 / 智能筛选</small></div>
+        <div class="service-grid">
+          <a class="service link" href="http://yx.cjlu.edu.cn" target="_blank" rel="noopener" title="迎新系统（校外访问可能需校园网/VPN）">
+            <span class="service-icon">迎</span>
+            <span class="service-text"><b>迎新系统</b><small>报到 · 宿舍 · 绿色通道</small></span>
+            <i>↗</i>
+          </a>
+          <a class="service link" href="https://mp.weixin.qq.com/s?__biz=MzIwOTQxOTg4OQ==&mid=2247496730&idx=1&sn=4b58ddcf6629dada3b7f191d628b0579" target="_blank" rel="noopener" title="2026-2027 学年学费缴费须知（微信公众号）">
+            <span class="service-icon">缴</span>
+            <span class="service-text"><b>缴费须知</b><small>学费 · 住宿费 · 步骤</small></span>
+            <i>↗</i>
+          </a>
+          <a class="service link" href="https://zs.cjlu.edu.cn/lxwm/xydt.htm" target="_blank" rel="noopener" title="中国计量大学本科招生网 · 校园地图">
+            <span class="service-icon">图</span>
+            <span class="service-text"><b>校园地图</b><small>下沙校区 · 报到点</small></span>
+            <i>↗</i>
+          </a>
+          <a class="service link" href="https://mp.weixin.qq.com/s?__biz=MzAwNzMyNTkxOA==&mid=2651357675&idx=1&sn=899472869369209c642d652e03bac826" target="_blank" rel="noopener" title="绿色通道办理指南（微信公众号）">
+            <span class="service-icon">绿</span>
+            <span class="service-text"><b>绿色通道</b><small>贷款 · 缓交 · 材料</small></span>
+            <i>↗</i>
+          </a>
+          <button class="service" type="button" data-cat="报到">
+            <span class="service-icon">报</span>
+            <span class="service-text"><b>报到流程</b><small>材料 · 流程 · 迟到</small></span>
+            <i>→</i>
+          </button>
+          <button class="service" type="button" data-cat="安全防骗">
+            <span class="service-icon">防</span>
+            <span class="service-text"><b>安全防骗</b><small>诈骗 · 推销 · 兼职</small></span>
+            <i>→</i>
+          </button>
+        </div>
+        <p class="service-note">迎新系统校外访问可能需校园网/VPN；缴费、绿色通道为学校公众号文章。</p>
+      </div>
+    </section>
+
+    <section class="timeline" aria-label="迎新时间轴">
+      <div class="step">
+        <div class="step-top"><span>01</span><h3>报到前</h3></div>
+        <p>材料、缴费、宿舍、防骗</p>
+        <div class="chips">
+          <button type="button" data-q="报到要带什么材料？">报到材料</button>
+          <button type="button" data-q="学费多少？怎么缴？">缴费</button>
+          <button type="button" data-q="宿舍怎么分？怎么查？">宿舍查询</button>
+          <button type="button" data-q="新生防诈骗要注意什么？">防骗</button>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-top"><span>02</span><h3>报到中</h3></div>
+        <p>到校、入住、绿色通道</p>
+        <div class="chips">
+          <button type="button" data-q="报到流程是什么？">报到流程</button>
+          <button type="button" data-q="校园地图/VR 全景有吗？">校园地图</button>
+          <button type="button" data-q="绿色通道怎么申请？">绿色通道</button>
+          <button type="button" data-q="家长能进校吗？">家长进校</button>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-top"><span>03</span><h3>入学后</h3></div>
+        <p>选课、军训、社团、校园跑</p>
+        <div class="chips">
+          <button type="button" data-q="什么时候选课？怎么选？">选课</button>
+          <button type="button" data-q="军训要准备什么？">军训好物</button>
+          <button type="button" data-q="社团/学生会/志愿汇怎么加？">社团</button>
+          <button type="button" data-q="校园跑怎么跑？多少公里？">校园跑</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq-section" id="faq">
+      <div class="section-head">
+        <div>
+          <h2>新生问答</h2>
+          <p>按分类看，或直接搜</p>
+        </div>
+        <span id="count">共 91 条</span>
+      </div>
+
+      <nav class="cats" id="cats" aria-label="问题分类"></nav>
+
+      <div class="toolbar">
+        <span id="mode">全部分类</span>
+        <div class="tool-actions">
+          <button id="expand" type="button">展开全部</button>
+          <button id="collapse" type="button">收起全部</button>
+        </div>
+      </div>
+
+      <main id="list" aria-live="polite"></main>
+      <div id="empty" class="empty" hidden>
+        <p>没找到对应问题。</p>
+        <p>换个关键词，或者直接去问量小新。</p>
+        <a class="chat-btn" href="index.html">去问量小新 →</a>
+      </div>
+    </section>
+
+    <section class="help-card">
+      <div>
+        <h3>没找到答案？</h3>
+        <p>让量小新接着问，或者转辅导员/迎新热线。</p>
+      </div>
+      <div class="help-actions">
+        <a class="primary" href="index.html">问量小新</a>
+        <a class="ghost" href="index.html">转人工</a>
+      </div>
+    </section>
+
+    <footer>
+      量小新 0.1 · 演示原型 · 答案以学校官方发布为准 · <a href="index.html">返回对话</a>
+    </footer>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </div>
+
+  <script src="kb.js"></script>
+  <script src="faq.js"></script>
+</body>
+</html>

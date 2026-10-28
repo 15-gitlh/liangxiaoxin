@@ -1,0 +1,17 @@
+# local tooling (portable Git, cloudflared, etc.)
+tools/
+douyin-25/
+
+# build output
+dist/
+
+# screenshots / demo images
+*.png
+
+# dependencies / OS
+node_modules/
+.DS_Store
+Thumbs.db
+
+# logs
+*.log

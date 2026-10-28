@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#082a4a" />
+  <meta name="description" content="量小新 · 中国计量大学新生助手（演示原型）" />
+  <title>量小新 · 中国计量大学新生助手</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="phone">
+    <div class="app">
+      <header class="topbar">
+        <div class="brand">
+          <div class="logo" aria-hidden="true">量</div>
+          <div class="brand-text">
+            <h1>量小新</h1>
+            <p><span class="dot"></span>中国计量大学 · 新生助手</p>
+          </div>
+        </div>
+        <div class="top-actions">
+          <button class="icon-btn" id="adminBtn" type="button" title="运营面板" aria-label="运营面板" hidden>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+              <path d="M4 7h9M17 7h3M4 17h3M11 17h9" />
+              <circle cx="15" cy="7" r="2" />
+              <circle cx="8" cy="17" r="2" />
+            </svg>
+          </button>
+          <a class="icon-btn" href="faq.html" title="问答库" aria-label="问答库">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v18H6.5A2.5 2.5 0 0 1 4 18.5v-13Z" />
+              <path d="M4 17.5A2.5 2.5 0 0 1 6.5 15H20" />
+              <path d="M8 7h7M8 10h5" />
+            </svg>
+          </a>
+          <button class="human-btn" id="humanBtn" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 13a8 8 0 0 1 16 0" />
+              <path d="M4 13v3a2 2 0 0 0 2 2h1v-6H6a2 2 0 0 0-2 2Z" />
+              <path d="M20 13v3a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 2Z" />
+            </svg>
+            转人工
+          </button>
+        </div>
+      </header>
+
+      <div class="notice">演示版 · 答案以学校官方发布为准</div>
+
+      <nav class="cats" id="cats" aria-label="问题分类"></nav>
+
+      <div class="chat-wrap">
+        <main class="chat" id="chat" aria-live="polite"></main>
+      </div>
+
+      <form class="composer" id="composer" autocomplete="off">
+        <button class="mic" id="micBtn" type="button" title="语音输入" aria-label="语音输入">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+            <rect x="9" y="3" width="6" height="11" rx="3" />
+            <path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M9 21h6" />
+          </svg>
+        </button>
+        <input id="input" type="text" placeholder="问报到、宿舍、缴费、军训…" maxlength="120" aria-label="输入问题" />
+        <button class="send" type="submit" title="发送" aria-label="发送">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round">
+            <path d="M3.5 11.6 20.5 3.5l-8.1 17-2.3-6.6-6.6-2.3Z" />
+            <path d="m10.1 13.9 4.2-4.2" />
+          </svg>
+        </button>
+      </form>
+      <div class="foot">量小新 0.1 · <span id="kbCount">43</span> 条知识库 · <a href="faq.html">问答库</a> · 答不准请转人工</div>
+    </div>
+  </div>
+
+  <div id="modalRoot"></div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <!-- 接入大模型时取消下一行注释，并先启动 server.mjs -->
+  <!-- <script>window.LXX_LLM_ENABLED = true;</script> -->
+  <script src="kb.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
