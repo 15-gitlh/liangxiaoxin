@@ -1,22 +1,26 @@
 # 量小新 · 上线说明
 
-## 当前临时公网地址
+## 已上线：GitHub Pages
 
 ```
-https://6b27d14eaf4a40.lhr.life/
+https://15-gitlh.github.io/liangxiaoxin/
 ```
 
-- 由 `localhost.run` SSH 隧道提供，HTTPS，手机/外网可直接打开。
-- **临时地址**：电脑关机、休眠、断网、Node 服务停止或 SSH 隧道断开后会失效；重启隧道地址会变。
-- 问答库：`https://6b27d14eaf4a40.lhr.life/faq.html`
-
-同 Wi-Fi 局域网地址：
+问答库：
 
 ```
-http://10.5.115.162:8787/
+https://15-gitlh.github.io/liangxiaoxin/faq.html
 ```
 
-需要 Windows 防火墙允许 Node.js；不同 Wi-Fi/AP 隔离时不可用。
+GitHub 仓库：
+
+```
+https://github.com/15-gitlh/liangxiaoxin
+```
+
+- 已配置 GitHub Actions，push 到 `main` 后自动部署
+- 来源：`.github/workflows/pages.yml`，发布产物 `dist/`
+- 旧临时隧道（`6b27...lhr.life`）已停用，不再依赖本机开机
 
 ---
 
