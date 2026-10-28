@@ -22,7 +22,13 @@ http://10.5.115.162:8787/
 
 ## 永久上线：静态托管
 
-这个项目是纯静态站，不需要构建。需要上传的文件：
+这个项目没有框架构建，但部署前会用 `build.mjs` 把公开文件复制到 `dist/`：
+
+```bash
+node build.mjs
+```
+
+`dist/` 里是这 9 个文件：
 
 ```
 index.html
@@ -32,37 +38,74 @@ faq.css
 app.js
 faq.js
 kb.js
+robots.txt
+_headers
 ```
 
-`server.mjs`、`package.json` 只在本地起服务/接大模型时需要，静态托管不用上传。
+`server.mjs`、`package.json`、`inbox/`、截图、`tools/` 都不进 `dist/`，不会被公开访问。
 
 ### 方案 A：Cloudflare Pages（推荐，免费 HTTPS）
 
+**Git 连接（推荐，能自动更新）**
+
 1. 登录 https://dash.cloudflare.com/
+2. Workers & Pages → Create → Pages → Connect to Git
+3. 选仓库，Build command 填 `node build.mjs`，Output directory 填 `dist`
+4. Deploy，得到 `*.pages.dev`
+5. 绑定自定义域名
+
+**直接上传（不会自动更新）**
+
+1. 本地执行 `node build.mjs`
 2. Workers & Pages → Create → Pages → Upload assets
-3. 把上面 7 个文件拖进去
-4. Deploy，得到 `*.pages.dev` 域名
-5. 需要自定义域名时，在 Pages 项目里绑域名
+3. 把 `dist/` 文件夹拖进去
 
-### 方案 B：Netlify Drop
+### 方案 B：Netlify（仓库已带 `netlify.toml`）
 
-1. 打开 https://app.netlify.com/drop
-2. 把 7 个文件所在文件夹拖进去
-3. 登录后保留站点，得到 `*.netlify.app`
+**Git 连接（推荐，能自动更新）**
 
-### 方案 C：Vercel
+1. 登录 https://app.netlify.com/
+2. Add new site → Import an existing project → 选 GitHub 仓库
+3. Netlify 会自动读取 `netlify.toml`（`node build.mjs` + `dist`）
+4. Deploy
+
+**拖拽上传（不会自动更新）**
+
+1. 本地执行 `node build.mjs`
+2. 打开 https://app.netlify.com/drop
+3. 把 `dist/` 文件夹拖进去
+
+### 方案 C：Vercel（仓库已带 `vercel.json`）
 
 ```bash
 npx vercel --prod
 ```
 
-按提示登录，项目根目录选 `liangxiaoxin`。
+按提示登录，项目根目录选 `liangxiaoxin`；`vercel.json` 已指定 `node build.mjs` 和 `dist`。
 
 ### 方案 D：GitHub Pages
 
-1. 新建仓库，上传 7 个文件
-2. Settings → Pages → Deploy from a branch → `main` / root
-3. 得到 `https://<用户名>.github.io/<仓库名>/`
+仓库已带 `.github/workflows/pages.yml`：
+
+1. 推送到 GitHub 的 `main`
+2. 仓库 Settings → Pages → Build and deployment → Source 选 **GitHub Actions**
+3. 每次 push 自动部署，地址 `https://<用户名>.github.io/<仓库名>/`
+
+---
+
+## 自动更新怎么开
+
+只要用 **Git 连接**（Netlify / Cloudflare Pages / GitHub Pages），以后改完执行：
+
+```bash
+git add .
+git commit -m "更新知识库"
+git push
+```
+
+平台会自动重新构建、发布。只改本地不 push，线上不会变。
+
+如果用的是拖拽上传，改完要重新 `node build.mjs` 再拖一次 `dist/`。
 
 ---
 

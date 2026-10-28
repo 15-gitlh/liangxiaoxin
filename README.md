@@ -37,6 +37,23 @@ node server.mjs
 
 ---
 
+## 构建 / 部署
+
+```bash
+node build.mjs
+# 生成 dist/，只包含公开页面文件
+```
+
+仓库已初始化 Git，并带好：
+
+- `netlify.toml`（Netlify：`node build.mjs` + `dist`）
+- `vercel.json`（Vercel：`node build.mjs` + `dist`）
+- `.github/workflows/pages.yml`（GitHub Pages：push 自动部署）
+
+详细步骤见 [DEPLOY.md](DEPLOY.md)。
+
+---
+
 ## 目录
 
 ```
@@ -48,9 +65,13 @@ liangxiaoxin/
 ├─ app.js          对话检索、转人工、运营面板
 ├─ faq.js          问答库搜索、分类、折叠
 ├─ kb.js           91 条知识库（核心资产）
+├─ build.mjs       生成 dist/ 部署包
+├─ netlify.toml    Netlify 构建配置
+├─ vercel.json     Vercel 构建配置
 ├─ server.mjs      可选：静态服务 + 大模型代理
 ├─ package.json
 ├─ benchmark.md    师小新 vs 量小新 对标拆解
+├─ DEPLOY.md       上线/托管说明
 └─ README.md
 ```
 
