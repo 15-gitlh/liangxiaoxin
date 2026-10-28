@@ -55,6 +55,8 @@ node build.mjs
 .\publish.ps1 "更新知识库"
 ```
 
+> 本机没有全局 Git，便携版在 `tools\git\cmd\git.exe`（已被 `.gitignore` 排除）；`publish.ps1` 会自动使用它。
+
 详细步骤见 [DEPLOY.md](DEPLOY.md)。
 
 ---

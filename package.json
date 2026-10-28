@@ -5,6 +5,7 @@
   "type": "module",
   "description": "量小新 · 中国计量大学新生助手（演示原型）",
   "scripts": {
-    "start": "node server.mjs"
+    "start": "node server.mjs",
+    "build": "node build.mjs"
   }
 }
