@@ -49,13 +49,13 @@ node build.mjs
 - `netlify.toml`（Netlify：`node build.mjs` + `dist`）
 - `vercel.json`（Vercel：`node build.mjs` + `dist`）
 - `.github/workflows/pages.yml`（GitHub Pages：push 自动部署）
-- `publish.ps1`（一键 `git add/commit/push`）
+- `publish.cmd` / `publish.ps1`（一键 `git add/commit/push`）
 
 ```powershell
-.\publish.ps1 "更新知识库"
+.\publish.cmd "更新知识库"
 ```
 
-> 本机没有全局 Git，便携版在 `tools\git\cmd\git.exe`（已被 `.gitignore` 排除）；`publish.ps1` 会自动使用它。
+> 本机没有全局 Git，便携版在 `tools\git\cmd\git.exe`（已被 `.gitignore` 排除）；`publish.cmd` 会自动用 Windows PowerShell 执行 `publish.ps1` 并绕过脚本执行策略。
 
 详细步骤见 [DEPLOY.md](DEPLOY.md)。
 
@@ -75,6 +75,7 @@ liangxiaoxin/
 ├─ build.mjs       生成 dist/ 部署包
 ├─ netlify.toml    Netlify 构建配置
 ├─ vercel.json     Vercel 构建配置
+├─ publish.cmd     一键发布入口（绕过 PowerShell 执行策略）
 ├─ publish.ps1     一键 git add/commit/push
 ├─ server.mjs      可选：静态服务 + 大模型代理
 ├─ package.json

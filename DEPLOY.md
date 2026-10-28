@@ -114,10 +114,10 @@ git push -u origin main
 改完知识库/前端后，在项目目录执行：
 
 ```powershell
-.\publish.ps1 "更新知识库"
+.\publish.cmd "更新知识库"
 ```
 
-它会自动 `git add` → `git commit` → `git push`；平台已连接 Git 的话，网站随后自动更新。
+`publish.cmd` 会调用 `publish.ps1`，并绕过 Windows PowerShell 的脚本执行策略。它会自动 `git add` → `git commit` → `git push`；平台已连接 Git 的话，网站随后自动更新。
 
 ---
 
