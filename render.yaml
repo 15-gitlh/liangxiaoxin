@@ -1,0 +1,38 @@
+services:
+  - type: web
+    name: liangxiaoxin-agent
+    runtime: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: CORS_ORIGINS
+        value: https://15-gitlh.github.io,http://localhost:8787
+      - key: PGSSL
+        value: require
+      - key: DATABASE_URL
+        sync: false
+      - key: LLM_API_KEY
+        sync: false
+      - key: LLM_BASE_URL
+        value: https://api.deepseek.com/v1
+      - key: LLM_MODEL
+        value: deepseek-chat
+      - key: EMBEDDING_API_KEY
+        sync: false
+      - key: EMBEDDING_BASE_URL
+        value: https://dashscope.aliyuncs.com/compatible-mode/v1
+      - key: EMBEDDING_MODEL
+        value: qwen3.7-text-embedding
+      - key: EMBEDDING_DIM
+        value: "1024"
+      - key: EMBEDDING_BATCH_SIZE
+        value: "10"
+      - key: EMBEDDING_SEND_DIMENSIONS
+        value: "true"
+      - key: ADMIN_TOKEN
+        sync: false

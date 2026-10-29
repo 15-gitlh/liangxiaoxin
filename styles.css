@@ -440,6 +440,49 @@ button { cursor: pointer; }
 .source a { color: #0e8f9c; text-decoration: none; }
 .source a:hover { text-decoration: underline; }
 
+.cites {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 8px;
+  padding-top: 7px;
+  border-top: 1px dashed #e6eef5;
+}
+.cite {
+  padding: 6px 8px;
+  border: 1px solid #e6f0f5;
+  border-radius: 8px;
+  background: #f7fbfd;
+}
+.cite b {
+  display: block;
+  color: #25506d;
+  font-size: 10.5px;
+  line-height: 1.4;
+  font-weight: 600;
+}
+.cite span {
+  display: block;
+  margin-top: 2px;
+  color: #8398aa;
+  font-size: 9px;
+  line-height: 1.4;
+}
+.cite a {
+  display: inline-block;
+  margin-top: 3px;
+  color: #0e8f9c;
+  font-size: 9px;
+  text-decoration: none;
+}
+.cite a:hover { text-decoration: underline; }
+.agent-note {
+  margin-top: 7px;
+  color: #9aafbf;
+  font-size: 9px;
+  line-height: 1.5;
+}
+
 .answer-actions {
   display: flex;
   align-items: center;

@@ -1,0 +1,29 @@
+{
+  "name": "liangxiaoxin-agent",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "量小新 · 大学新生答疑智能体后端",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "node --watch server.js",
+    "start": "node server.js",
+    "check": "node --check server.js",
+    "export:kb": "node scripts/export-kb.mjs",
+    "db:init": "node scripts/init-db.mjs",
+    "ingest": "node scripts/ingest.mjs"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
+    "openai": "^4.77.0",
+    "pg": "^8.13.1",
+    "pgvector": "^0.2.0",
+    "zod": "^3.24.1"
+  }
+}

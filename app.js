@@ -23,7 +23,19 @@
   };
   const LS_LOG = "lxx_log_v1";
   const LS_FB = "lxx_fb_v1";
-  const state = { lastCategory: null, lastEntryId: null, lastQuestion: "", activeCat: "全部" };
+  const state = {
+    lastCategory: null,
+    lastEntryId: null,
+    lastQuestion: "",
+    activeCat: "全部",
+    history: [],
+    sessionId: window.crypto?.randomUUID ? window.crypto.randomUUID() : "s-" + Date.now()
+  };
+
+  // 本地开发时后端在 8080；部署后在这里改成 Render/Railway 地址
+  const API_BASE = String(window.LXX_API_BASE || "").replace(/\/$/, "") ||
+    (["127.0.0.1", "localhost"].includes(location.hostname) ? "http://127.0.0.1:8080" : "");
+  const AGENT_ENABLED = window.LXX_AGENT_ENABLED !== false && Boolean(API_BASE);
 
   /* ---------------- utils ---------------- */
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -54,6 +66,13 @@
       .replace(/1[3-9]\d{9}/g, "[手机号]")
       .replace(/\b\d{17}[\dXx]\b/g, "[证件号]")
       .slice(0, 160);
+  }
+
+  function remember(role, content) {
+    const text = String(content || "").trim();
+    if (!text) return;
+    state.history.push({ role, content: text.slice(0, 2000) });
+    state.history = state.history.slice(-6);
   }
 
   function readStore(key, fallback) {
@@ -487,6 +506,83 @@
     return card;
   }
 
+  function renderAgent(data) {
+    const card = document.createElement("div");
+    card.className = "bubble answer agent-answer";
+
+    const head = document.createElement("div");
+    head.className = "answer-head";
+    const title = document.createElement("h3");
+    title.className = "answer-title";
+    title.textContent = "量小新 · 智能回答";
+    const badge = document.createElement("span");
+    badge.className = "status general";
+    badge.textContent = data.handoff ? "建议转人工" : "AI 生成";
+    head.append(title, badge);
+    card.appendChild(head);
+
+    const body = document.createElement("div");
+    String(data.answer || "").split("\n").filter(Boolean).forEach((t) => {
+      const p = document.createElement("p");
+      p.textContent = t;
+      body.appendChild(p);
+    });
+    card.appendChild(body);
+
+    const citations = Array.isArray(data.citations) ? data.citations : [];
+    if (citations.length) {
+      const box = document.createElement("div");
+      box.className = "cites";
+      citations.forEach((item, index) => {
+        const cite = document.createElement("div");
+        cite.className = "cite";
+
+        const label = document.createElement("b");
+        label.textContent = `[${index + 1}] ${item.title || "知识库条目"}`;
+        cite.appendChild(label);
+
+        const meta = document.createElement("span");
+        const parts = [];
+        if (item.source) parts.push(item.source);
+        if (item.sourcePage) parts.push(`第 ${item.sourcePage} 页`);
+        if (item.score) parts.push(`相关度 ${Math.round(item.score * 100)}%`);
+        meta.textContent = parts.join(" · ");
+        cite.appendChild(meta);
+
+        if (item.sourceUrl) {
+          const a = document.createElement("a");
+          a.href = item.sourceUrl;
+          a.target = "_blank";
+          a.rel = "noopener";
+          a.textContent = "查看来源";
+          cite.appendChild(a);
+        }
+
+        box.appendChild(cite);
+      });
+      card.appendChild(box);
+    }
+
+    const note = document.createElement("div");
+    note.className = "agent-note";
+    note.textContent = data.handoff
+      ? "没有完全匹配的资料，建议转人工确认；答案仅供参照。"
+      : "答案由知识库检索 + DeepSeek 生成，请以学校官方发布为准。";
+    card.appendChild(note);
+
+    const actions = document.createElement("div");
+    actions.className = "answer-actions";
+    const human = document.createElement("button");
+    human.type = "button";
+    human.className = "mini primary";
+    human.textContent = "转人工";
+    human.addEventListener("click", openHuman);
+    actions.appendChild(human);
+    card.appendChild(actions);
+
+    return card;
+  }
+
   function renderLLM(data) {
     const card = document.createElement("div");
     card.className = "bubble answer";
@@ -651,17 +747,40 @@
 
     addUser(q);
     input.value = "";
+    remember("user", q);
 
     const typing = showTyping();
-    await sleep(360);
+    await sleep(250);
+
+    const local = answer(q);
+    const special = ["intro", "thanks", "human", "empty"].includes(local.type);
+    let agent = null;
+
+    if (AGENT_ENABLED && !special) {
+      agent = await tryAgent(q);
+    }
+
     typing.remove();
 
-    const res = answer(q);
+    if (agent) {
+      const first = Array.isArray(agent.citations) ? agent.citations[0] : null;
+      if (first?.category) state.lastCategory = first.category;
+      if (first?.id) state.lastEntryId = first.id;
+      addBot(renderAgent(agent));
+      remember("assistant", agent.answer);
+      logEvent({ type: "agent", q: safeText(q), entryId: first?.id || "" });
+      logEvent({ type: "ask", q: safeText(q) });
+      busy = false;
+      return;
+    }
+
+    const res = local;
 
     if (res.type === "entry") {
       state.lastCategory = res.entry.category;
       state.lastEntryId = res.entry.id;
       addBot(renderAnswer(res.entry));
+      remember("assistant", res.entry.answer);
       logEvent({ type: "hit", q: safeText(q), entryId: res.entry.id });
     } else if (res.type === "category") {
       addBot(renderCategory(res.category, res.title));
@@ -670,14 +789,8 @@
       addBot(renderChoices(res.entries, res.title));
       logEvent({ type: "hit", q: safeText(q), entryId: "choices" });
     } else if (res.type === "fallback") {
-      const llm = await tryLLM(q, res.related);
-      if (llm) {
-        addBot(renderLLM(llm));
-        logEvent({ type: "llm", q: safeText(q) });
-      } else {
-        addBot(renderFallback(res));
-        logEvent({ type: "miss", q: safeText(q) });
-      }
+      addBot(renderFallback(res));
+      logEvent({ type: "miss", q: safeText(q) });
     } else if (res.type === "intro") {
       addBot(renderIntro());
     } else if (res.type === "thanks") {
@@ -693,22 +806,30 @@
     busy = false;
   }
 
-  async function tryLLM(q, context) {
-    if (window.LXX_LLM_ENABLED !== true) return null;
+  async function tryAgent(q) {
+    if (!AGENT_ENABLED) return null;
+
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 12_000);
+
     try {
-      const res = await fetch("/api/chat", {
+      const res = await fetch(`${API_BASE}/api/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          question: q,
-          context: (context || []).map((e) => ({ title: e.title, answer: e.answer, source: e.source }))
-        })
+          message: q,
+          sessionId: state.sessionId,
+          history: state.history.slice(-6)
+        }),
+        signal: controller.signal
       });
       if (!res.ok) return null;
       const data = await res.json();
       return data && data.answer ? data : null;
     } catch {
       return null;
+    } finally {
+      clearTimeout(timer);
     }
   }
 

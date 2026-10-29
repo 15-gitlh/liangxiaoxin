@@ -21,25 +21,31 @@
 - 对话页：`index.html`
 - 问答库：`faq.html`（分类、搜索、折叠答案）
 
-如果要测试“接入大模型”的版本：
+如果要接智能体后端（RAG + DeepSeek）：
 
 ```bash
-# 需要 Node 18+
-set LLM_API_KEY=你的key
-set LLM_BASE_URL=https://api.openai.com/v1
-set LLM_MODEL=gpt-4o-mini
-node server.mjs
-# 对话页 http://127.0.0.1:8787
-# 问答库 http://127.0.0.1:8787/faq.html
+cd backend
+npm install
+cp .env.example .env
+# 填 DATABASE_URL / EMBEDDING_API_KEY / LLM_API_KEY
+npm run db:init
+npm run ingest
+npm run dev
+# 后端 http://127.0.0.1:8080
+# 前端 http://127.0.0.1:8787
 ```
 
-然后取消 `index.html` 里这一行的注释：
+本地打开 `127.0.0.1:8787` 时，前端会自动把问题发到 `127.0.0.1:8080/api/chat`。
+
+后端部署到 Render/Railway 后，在 `index.html` 里设置：
 
 ```html
-<script>window.LXX_LLM_ENABLED = true;</script>
+<script>
+  window.LXX_API_BASE = "https://你的后端域名";
+</script>
 ```
 
-不配置 key 也能用，前端会自动回退到本地知识库。
+不接后端、或后端不可用时，前端会自动回退到本地 `kb.js` 检索。
 
 ---
 
@@ -95,6 +101,7 @@ liangxiaoxin/
 ## 已实现
 
 - **对话页** `index.html`：聊天式问答 + 转人工 + 运营面板
+- **智能体链路**：前端可接 `backend` 的 RAG 接口，渲染 AI 回答卡片 + 引用来源；失败自动回退本地 `kb.js`
 - **问答库** `faq.html`：迎新服务入口 + 时间轴 + 分类 + 搜索 + 折叠答案 + 语音提问
 - 语音提问：浏览器 Web Speech API（Chrome/Edge），需允许麦克风；不支持时提示键盘输入
 - 服务卡已接：迎新系统（`http://yx.cjlu.edu.cn`）、2026-2027 缴费须知、本科招生网校园地图、绿色通道指南；迎新系统校外访问可能需校园网/VPN

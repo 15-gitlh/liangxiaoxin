@@ -1,0 +1,8 @@
+backend/node_modules
+backend/.env
+.git
+tools
+douyin-25
+dist
+*.png
+*.log
