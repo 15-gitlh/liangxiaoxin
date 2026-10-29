@@ -24,6 +24,48 @@ https://github.com/15-gitlh/liangxiaoxin
 
 ---
 
+## 后端：当前临时公网地址
+
+```
+https://7912355ae701a0.lhr.life
+```
+
+- 由 `localhost.run` SSH 隧道转发到本机 `127.0.0.1:8080`
+- 前端 `index.html` 的 `window.LXX_API_BASE` 已指向它
+- **临时地址**：电脑关机、后端进程停止或 SSH 隧道断开后会失效
+- 失效后前端会自动回退到本地 `kb.js`，页面不会白屏
+
+## 后端：Render 永久部署
+
+仓库已带 `render.yaml`、`Dockerfile`、`backend/Procfile`。
+
+1. 登录 https://dashboard.render.com
+2. **New → Blueprint**
+3. 连接 GitHub 仓库 `15-gitlh/liangxiaoxin`
+4. Render 读取根目录 `render.yaml`
+5. 填 4 个 Secret：
+   - `DATABASE_URL`
+   - `EMBEDDING_API_KEY`
+   - `LLM_API_KEY`
+   - `ADMIN_TOKEN`
+6. Deploy，得到 `https://liangxiaoxin-agent.onrender.com`（名称可能带随机后缀）
+7. 把 `index.html` 里的：
+
+```html
+window.LXX_API_BASE = "https://7912355ae701a0.lhr.life";
+```
+
+改成 Render 地址，再执行：
+
+```powershell
+.\publish.cmd "切换到 Render 后端"
+```
+
+> Render 免费实例会休眠，首次唤醒可能等 30–60 秒；正式用建议 Starter。
+> 如果 Blueprint 的 `plan: free` 不可用，在 Render 里改 plan 即可。
+
+---
+
 ## 永久上线：静态托管
 
 这个项目没有框架构建，但部署前会用 `build.mjs` 把公开文件复制到 `dist/`：

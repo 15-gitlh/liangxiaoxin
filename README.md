@@ -8,6 +8,8 @@
 - 问答库：https://15-gitlh.github.io/liangxiaoxin/faq.html
 - 仓库：https://github.com/15-gitlh/liangxiaoxin
 
+> 智能回答后端当前是临时隧道（`7912355...lhr.life`），依赖本机开机；永久 Render 部署步骤见 [DEPLOY.md](DEPLOY.md)。
+
 对标河南师范大学“师小新”的迎新问答链路，先做一个人能维护的 MVP，不接学校系统、不碰学生个人信息。
 
 > ⚠️ 这不是中国计量大学官方产品。当前是演示版：日期、金额、宿舍分配等标注“待官方确认”的条目，上线前必须替换为学校官方版本，并由学工部/招生办审核。
