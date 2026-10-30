@@ -24,18 +24,25 @@ https://github.com/15-gitlh/liangxiaoxin
 
 ---
 
-## 后端：当前临时公网地址
+## 后端：Vercel（已上线）
 
 ```
-https://7912355ae701a0.lhr.life
+https://agent.liangxiaoxin.top
 ```
 
-- 由 `localhost.run` SSH 隧道转发到本机 `127.0.0.1:8080`
+健康检查：
+
+```
+https://agent.liangxiaoxin.top/api/health
+```
+
+- Vercel 项目根目录：`backend`
+- 函数入口：`backend/api/chat.js`、`health.js`、`feedback.js`
+- 自定义域名：`agent.liangxiaoxin.top`（CNAME 到 Vercel）
 - 前端 `index.html` 的 `window.LXX_API_BASE` 已指向它
-- **临时地址**：电脑关机、后端进程停止或 SSH 隧道断开后会失效
-- 失效后前端会自动回退到本地 `kb.js`，页面不会白屏
+- 不再依赖本机隧道或开机
 
-## 后端：Render 永久部署
+## 后端：Render 备用方案
 
 仓库已带 `render.yaml`、`Dockerfile`、`backend/Procfile`。
 
@@ -49,13 +56,7 @@ https://7912355ae701a0.lhr.life
    - `LLM_API_KEY`
    - `ADMIN_TOKEN`
 6. Deploy，得到 `https://liangxiaoxin-agent.onrender.com`（名称可能带随机后缀）
-7. 把 `index.html` 里的：
-
-```html
-window.LXX_API_BASE = "https://7912355ae701a0.lhr.life";
-```
-
-改成 Render 地址，再执行：
+7. 把 `index.html` 里的 `window.LXX_API_BASE` 改成 Render 地址，再执行：
 
 ```powershell
 .\publish.cmd "切换到 Render 后端"

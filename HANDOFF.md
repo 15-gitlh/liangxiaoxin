@@ -1,9 +1,14 @@
-# 新手交接：现在只差 EdgeOne 部署
+# 新手交接：已完成（Vercel 上线）
 
-> 你不需要懂代码。下面每一步都写成“点哪里、填什么”。
+> 后端最终没有走 EdgeOne，而是用 Vercel + 自定义域名上线。
 >
-> 代码、数据库、91 条知识、前端对接，我这边已经做完了。  
-> 只剩 EdgeOne 控制台必须登录你的腾讯云账号，我代不了。
+> 当前正式地址：
+>
+> - 前端：https://15-gitlh.github.io/liangxiaoxin/
+> - 后端：https://agent.liangxiaoxin.top
+> - 健康检查：https://agent.liangxiaoxin.top/api/health
+>
+> 下面保留 EdgeOne 尝试记录，供以后参考。
 
 ---
 
@@ -15,9 +20,9 @@
 | 前端 | https://15-gitlh.github.io/liangxiaoxin/ |
 | 问答库 | https://15-gitlh.github.io/liangxiaoxin/faq.html |
 | Supabase | `kb_chunks` 91 条，91 个 embedding |
-| 本地后端 | 已跑通 `/api/chat` |
-| EdgeOne 配置 | 已推仓库，等你导入 |
-| 临时隧道 | 可能随时失效；EdgeOne 上线后就不用了 |
+| 后端 | Vercel：https://agent.liangxiaoxin.top |
+| 自定义域名 | `agent.liangxiaoxin.top` |
+| EdgeOne | 当前项目只支持静态页，未采用 |
 
 ---
 

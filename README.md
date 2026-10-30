@@ -6,10 +6,12 @@
 
 - 对话页：https://15-gitlh.github.io/liangxiaoxin/
 - 问答库：https://15-gitlh.github.io/liangxiaoxin/faq.html
+- 智能回答后端：https://agent.liangxiaoxin.top
+- 健康检查：https://agent.liangxiaoxin.top/api/health
 - 仓库：https://github.com/15-gitlh/liangxiaoxin
 
-> 智能回答后端当前是临时隧道（地址见 `index.html` 的 `LXX_API_BASE`），依赖本机开机。  
-> 新手部署请看 [HANDOFF.md](HANDOFF.md)；Render/EdgeOne 细节见 [DEPLOY.md](DEPLOY.md) 和 [EDGEONE.md](EDGEONE.md)。
+> 后端已部署到 Vercel，绑定自定义域名 `agent.liangxiaoxin.top`；不再依赖本机隧道。  
+> 新手部署请看 [HANDOFF.md](HANDOFF.md)；Vercel 见 [VERCEL.md](VERCEL.md)。
 
 对标河南师范大学“师小新”的迎新问答链路，先做一个人能维护的 MVP，不接学校系统、不碰学生个人信息。
 
