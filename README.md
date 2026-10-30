@@ -8,7 +8,8 @@
 - 问答库：https://15-gitlh.github.io/liangxiaoxin/faq.html
 - 仓库：https://github.com/15-gitlh/liangxiaoxin
 
-> 智能回答后端当前是临时隧道（`7912355...lhr.life`），依赖本机开机；永久 Render 部署步骤见 [DEPLOY.md](DEPLOY.md)。
+> 智能回答后端当前是临时隧道（地址见 `index.html` 的 `LXX_API_BASE`），依赖本机开机。  
+> 新手部署请看 [HANDOFF.md](HANDOFF.md)；Render/EdgeOne 细节见 [DEPLOY.md](DEPLOY.md) 和 [EDGEONE.md](EDGEONE.md)。
 
 对标河南师范大学“师小新”的迎新问答链路，先做一个人能维护的 MVP，不接学校系统、不碰学生个人信息。
 
