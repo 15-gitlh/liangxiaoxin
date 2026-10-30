@@ -19,7 +19,7 @@
 | GitHub 仓库 | https://github.com/15-gitlh/liangxiaoxin |
 | 前端 | https://15-gitlh.github.io/liangxiaoxin/ |
 | 问答库 | https://15-gitlh.github.io/liangxiaoxin/faq.html |
-| Supabase | `kb_chunks` 91 条，91 个 embedding |
+| Supabase | `kb_chunks` 95 条，95 个 embedding |
 | 后端 | Vercel：https://agent.liangxiaoxin.top |
 | 自定义域名 | `agent.liangxiaoxin.top` |
 | EdgeOne | 当前项目只支持静态页，未采用 |

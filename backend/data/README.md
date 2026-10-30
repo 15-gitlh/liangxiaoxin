@@ -16,7 +16,7 @@ npm run export:kb
 | `schemaVersion` | 当前 `1.0` |
 | `generatedAt` | 生成时间 |
 | `generatedFrom` | 固定 `kb.js` |
-| `count` | 条目数（当前 91） |
+| `count` | 条目数（当前 95） |
 | `categoryOrder` | 分类展示顺序 |
 | `categories` | 分类及数量 |
 | `statusCounts` | `official / general / pending` 数量 |
