@@ -71,6 +71,7 @@ node build.mjs
 - `publish.cmd` / `publish.ps1`（一键 `git add/commit/push`）
 - `set-api-base.cmd`（切换后端地址并发布）
 - `backend/scripts/check-backend.mjs`（验证线上 `/api/health` 和 `/api/chat`）
+- `backend/scripts/check-stability.mjs`（多轮 + 并发稳定性测试）
 
 ```powershell
 .\publish.cmd "更新知识库"
@@ -80,6 +81,9 @@ node build.mjs
 
 # 验证线上后端
 .\tools\node\node.exe backend\scripts\check-backend.mjs https://你的后端域名
+
+# 稳定性测试（多轮问答 + 3 并发）
+.\tools\node\node.exe backend\scripts\check-stability.mjs https://你的后端域名
 ```
 
 > 本机没有全局 Git，便携版在 `tools\git\cmd\git.exe`（已被 `.gitignore` 排除）；`publish.cmd` 会自动用 Windows PowerShell 执行 `publish.ps1` 并绕过脚本执行策略。
