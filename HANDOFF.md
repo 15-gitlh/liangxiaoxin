@@ -257,11 +257,11 @@ https://15-gitlh.github.io
 
 ---
 
-## 七、如果 EdgeOne 也不让免费用
+## 七、如果 EdgeOne 项目不支持函数
 
 按顺序换：
 
-1. **Vercel Hobby**：GitHub 登录，通常不绑卡；需要我改 Serverless 适配
+1. **Vercel Hobby**：GitHub 登录，通常不绑卡；代码已适配，见 [VERCEL.md](VERCEL.md)
 2. **Hugging Face Spaces**：Docker，不绑卡；国内访问可能不稳
 3. **Railway**：试用额度，可能不用立刻绑卡
 

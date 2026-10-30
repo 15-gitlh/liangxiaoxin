@@ -64,7 +64,8 @@ node build.mjs
 - `netlify.toml`（Netlify：`node build.mjs` + `dist`）
 - `vercel.json`（Vercel：`node build.mjs` + `dist`）
 - `.github/workflows/pages.yml`（GitHub Pages：push 自动部署）
-- `edgeone.json` + `cloud-functions/`（EdgeOne Makers，不绑卡后端）
+- `edgeone.json` + `cloud-functions/`（EdgeOne Makers 后端）
+- `backend/vercel.json` + `backend/api/`（Vercel 免费子域名后端）
 - `publish.cmd` / `publish.ps1`（一键 `git add/commit/push`）
 - `set-api-base.cmd`（切换后端地址并发布）
 - `backend/scripts/check-backend.mjs`（验证线上 `/api/health` 和 `/api/chat`）
@@ -81,7 +82,7 @@ node build.mjs
 
 > 本机没有全局 Git，便携版在 `tools\git\cmd\git.exe`（已被 `.gitignore` 排除）；`publish.cmd` 会自动用 Windows PowerShell 执行 `publish.ps1` 并绕过脚本执行策略。
 
-详细步骤见 [DEPLOY.md](DEPLOY.md)；EdgeOne Makers 见 [EDGEONE.md](EDGEONE.md)。
+详细步骤见 [DEPLOY.md](DEPLOY.md)；EdgeOne Makers 见 [EDGEONE.md](EDGEONE.md)；Vercel 免费后端见 [VERCEL.md](VERCEL.md)。
 
 ---
 
