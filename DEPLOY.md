@@ -64,6 +64,15 @@ window.LXX_API_BASE = "https://7912355ae701a0.lhr.life";
 > Render 免费实例会休眠，首次唤醒可能等 30–60 秒；正式用建议 Starter。
 > 如果 Blueprint 的 `plan: free` 不可用，在 Render 里改 plan 即可。
 
+## 不绑卡备选：EdgeOne Makers
+
+Render 的 Blueprint 要绑卡时，用腾讯云 EdgeOne Makers：
+
+- 仓库已带 `edgeone.json` 和 `cloud-functions/api/[[default]].js`
+- 导入 Git 仓库即可，构建命令 `node build.mjs`，输出 `dist`
+- 环境变量和 Render 一样
+- 详细步骤见 [EDGEONE.md](EDGEONE.md)
+
 ---
 
 ## 永久上线：静态托管

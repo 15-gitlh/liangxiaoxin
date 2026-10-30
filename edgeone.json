@@ -1,0 +1,5 @@
+{
+  "buildCommand": "node build.mjs",
+  "outputDirectory": "./dist",
+  "nodeVersion": "20.18.0"
+}

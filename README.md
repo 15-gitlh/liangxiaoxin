@@ -63,6 +63,7 @@ node build.mjs
 - `netlify.toml`（Netlify：`node build.mjs` + `dist`）
 - `vercel.json`（Vercel：`node build.mjs` + `dist`）
 - `.github/workflows/pages.yml`（GitHub Pages：push 自动部署）
+- `edgeone.json` + `cloud-functions/`（EdgeOne Makers，不绑卡后端）
 - `publish.cmd` / `publish.ps1`（一键 `git add/commit/push`）
 
 ```powershell
@@ -71,7 +72,7 @@ node build.mjs
 
 > 本机没有全局 Git，便携版在 `tools\git\cmd\git.exe`（已被 `.gitignore` 排除）；`publish.cmd` 会自动用 Windows PowerShell 执行 `publish.ps1` 并绕过脚本执行策略。
 
-详细步骤见 [DEPLOY.md](DEPLOY.md)。
+详细步骤见 [DEPLOY.md](DEPLOY.md)；EdgeOne Makers 见 [EDGEONE.md](EDGEONE.md)。
 
 ---
 
