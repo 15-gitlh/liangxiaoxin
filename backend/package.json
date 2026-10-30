@@ -13,7 +13,8 @@
     "check": "node --check server.js",
     "export:kb": "node scripts/export-kb.mjs",
     "db:init": "node scripts/init-db.mjs",
-    "ingest": "node scripts/ingest.mjs"
+    "ingest": "node scripts/ingest.mjs",
+    "check:remote": "node scripts/check-backend.mjs"
   },
   "dependencies": {
     "cors": "^2.8.5",

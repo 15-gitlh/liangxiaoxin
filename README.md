@@ -65,9 +65,17 @@ node build.mjs
 - `.github/workflows/pages.yml`（GitHub Pages：push 自动部署）
 - `edgeone.json` + `cloud-functions/`（EdgeOne Makers，不绑卡后端）
 - `publish.cmd` / `publish.ps1`（一键 `git add/commit/push`）
+- `set-api-base.cmd`（切换后端地址并发布）
+- `backend/scripts/check-backend.mjs`（验证线上 `/api/health` 和 `/api/chat`）
 
 ```powershell
 .\publish.cmd "更新知识库"
+
+# 后端换了地址时
+.\set-api-base.cmd "https://你的后端域名" -Publish
+
+# 验证线上后端
+.\tools\node\node.exe backend\scripts\check-backend.mjs https://你的后端域名
 ```
 
 > 本机没有全局 Git，便携版在 `tools\git\cmd\git.exe`（已被 `.gitignore` 排除）；`publish.cmd` 会自动用 Windows PowerShell 执行 `publish.ps1` 并绕过脚本执行策略。
@@ -90,12 +98,17 @@ liangxiaoxin/
 ├─ build.mjs       生成 dist/ 部署包
 ├─ netlify.toml    Netlify 构建配置
 ├─ vercel.json     Vercel 构建配置
+├─ edgeone.json    EdgeOne Makers 构建配置
+├─ cloud-functions/ EdgeOne Cloud Function 入口
+├─ backend/        RAG 后端（Express + Supabase + DeepSeek）
 ├─ publish.cmd     一键发布入口（绕过 PowerShell 执行策略）
 ├─ publish.ps1     一键 git add/commit/push
+├─ set-api-base.cmd 切换后端地址并发布
 ├─ server.mjs      可选：静态服务 + 大模型代理
 ├─ package.json
 ├─ benchmark.md    师小新 vs 量小新 对标拆解
 ├─ DEPLOY.md       上线/托管说明
+├─ EDGEONE.md      EdgeOne Makers 部署指南
 └─ README.md
 ```
 
