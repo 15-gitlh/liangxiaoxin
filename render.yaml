@@ -36,5 +36,9 @@ services:
         value: "true"
       - key: HANDOFF_MIN_CONFIDENCE
         value: "0.45"
+      - key: CHAT_DAILY_LIMIT
+        value: "50"
+      - key: CHAT_CACHE_HOURS
+        value: "24"
       - key: ADMIN_TOKEN
         sync: false

@@ -169,6 +169,16 @@ async function main() {
 
     await client.query("commit");
 
+    // 知识更新后清掉旧问答缓存，避免 24 小时内继续返回旧答案
+    try {
+      const cleared = await client.query("delete from public.chat_cache");
+      console.log(`[ingest] cache cleared=${cleared.rowCount}`);
+    } catch (err) {
+      if (err.code !== "42P01") {
+        console.warn("[ingest] cache clear failed:", err.message);
+      }
+    }
+
     console.log(`[ingest] written=${written}`);
     console.log(
       `[ingest] db count=${check.rows[0].count} embedded=${check.rows[0].embedded}`

@@ -71,3 +71,30 @@ create trigger kb_chunks_touch_updated_at
 before update on public.kb_chunks
 for each row
 execute function public.touch_kb_chunks_updated_at();
+
+-- ------------------------------------------------------------
+-- 成本保护：每日 IP 限额 + 问答缓存
+-- ------------------------------------------------------------
+
+create table if not exists public.chat_usage (
+  ip_hash     text not null,
+  day         date not null default current_date,
+  count       int not null default 0,
+  primary key (ip_hash, day)
+);
+
+create index if not exists chat_usage_day_idx
+  on public.chat_usage (day);
+
+create table if not exists public.chat_cache (
+  cache_key   text primary key,
+  payload     jsonb not null,
+  expires_at  timestamptz not null,
+  created_at  timestamptz not null default now()
+);
+
+create index if not exists chat_cache_expires_idx
+  on public.chat_cache (expires_at);
+
+alter table public.chat_usage enable row level security;
+alter table public.chat_cache enable row level security;

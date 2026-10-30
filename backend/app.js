@@ -6,6 +6,12 @@ import rateLimit from "express-rate-limit";
 import { randomUUID } from "node:crypto";
 import { z } from "zod";
 import { answerQuestion } from "./src/agent.js";
+import {
+  checkDailyLimit,
+  getClientIp,
+  readCache,
+  writeCache
+} from "./src/guard.js";
 
 const app = express();
 
@@ -130,11 +136,46 @@ app.post("/api/chat", async (req, res, next) => {
     const started = Date.now();
     res.setHeader("X-Request-Id", requestId);
 
+    const daily = await checkDailyLimit(getClientIp(req));
+    if (!daily.allowed) {
+      return res.status(429).json({
+        error: "daily_limit_reached",
+        message: `今天的试用次数已用完（每个 IP 每天 ${daily.limit} 次），明天再来或转人工。`,
+        limit: daily.limit,
+        count: daily.count,
+        handoff: true
+      });
+    }
+
+    const priorHistory = history || [];
+    const cacheable =
+      !priorHistory.some((item) => item.role === "assistant") &&
+      priorHistory.length <= 1;
+
+    if (cacheable) {
+      const cached = await readCache(message);
+      if (cached) {
+        res.setHeader("X-Cache", "HIT");
+        return res.json({
+          requestId,
+          sessionId: sessionId || requestId,
+          ...cached,
+          cached: true,
+          latencyMs: Date.now() - started
+        });
+      }
+    }
+
     const result = await answerQuestion({
       message,
-      history: history || []
+      history: priorHistory
     });
 
+    if (cacheable && !result.handoff) {
+      await writeCache(message, result);
+    }
+
+    res.setHeader("X-Cache", "MISS");
     return res.json({
       requestId,
       sessionId: sessionId || requestId,
