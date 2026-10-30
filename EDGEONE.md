@@ -26,9 +26,11 @@ backend/
 2. 新建项目 → **导入 Git 仓库**
 3. 选择 `15-gitlh/liangxiaoxin`
 4. 构建配置会读取根目录 `edgeone.json`：
+   - install：`npm install`
    - build：`node build.mjs`
    - output：`./dist`
    - node：`20.18.0`
+   - functions directory：`cloud-functions`（**必须填，否则 API 会 404**）
 
 ## 2. 配置环境变量
 
@@ -168,7 +170,7 @@ citations: dorm-access(0.7563)
 
 | 现象 | 原因 | 处理 |
 |---|---|---|
-| `/api/health` 404 | 函数没识别到 | 确认 `cloud-functions/api/[[default]].js` 已推送，重新部署 |
+| `/api/health` 404 | 函数没识别到 | 项目设置里把 **Functions Directory** 填 `cloud-functions`，再重新部署 |
 | `Cannot find package 'express'` | 根依赖没装 | 确认根 `package.json` 有 express/pg/openai 等，重新构建 |
 | 503 `llm_not_configured` | 环境变量没填 | EdgeOne 项目设置里补 `LLM_API_KEY` |
 | 503 `embedding_not_configured` | 环境变量没填 | 补 `EMBEDDING_API_KEY` |

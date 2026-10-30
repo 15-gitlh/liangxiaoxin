@@ -61,9 +61,13 @@ liangxiaoxin-agent
 构建命令：node build.mjs
 输出目录：dist
 Node 版本：20.18.0
+函数目录：cloud-functions
 ```
 
-> 如果控制台不自动读取，就按上面 4 行手动填。
+> 如果控制台不自动读取，就按上面 5 行手动填。  
+> **最容易漏的是“函数目录”：必须填 `cloud-functions`，否则页面能打开，但 `/api/health` 返回 404。**
+
+7. 保存后重新部署一次。
 
 ### 第 3 件：填环境变量
 
@@ -194,7 +198,8 @@ https://15-gitlh.github.io/liangxiaoxin/
 
 ### 1. `/api/health` 返回 404
 
-- 确认仓库里有 `cloud-functions/api/[[default]].js`
+- **项目设置 → Functions Directory 填 `cloud-functions`**（最常见原因）
+- 确认仓库里有 `cloud-functions/api/health.js`、`chat.js`
 - 确认 EdgeOne 项目的根目录是**仓库根目录**，不是 `backend`
 - 重新部署一次
 - 看 EdgeOne → Functions 里有没有 `api`
