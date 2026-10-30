@@ -60,10 +60,15 @@ export async function answerQuestion({ message, history = [] }) {
     };
   }
 
+  const confidence = Number(contexts[0].score.toFixed(4));
+  const handoffMin = Number(process.env.HANDOFF_MIN_CONFIDENCE || 0.45);
+
+  const handoff = confidence < handoffMin;
+
   return {
     answer,
-    citations: pickCitedCitations(answer, contexts),
-    confidence: Number(contexts[0].score.toFixed(4)),
-    handoff: false
+    citations: handoff ? [] : pickCitedCitations(answer, contexts),
+    confidence,
+    handoff
   };
 }

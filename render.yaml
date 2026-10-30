@@ -34,5 +34,7 @@ services:
         value: "10"
       - key: EMBEDDING_SEND_DIMENSIONS
         value: "true"
+      - key: HANDOFF_MIN_CONFIDENCE
+        value: "0.45"
       - key: ADMIN_TOKEN
         sync: false
